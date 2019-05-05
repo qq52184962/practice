@@ -1,0 +1,97 @@
+//remove list
+
+const list = document.querySelector('#book-list ul')
+
+
+list.addEventListener("click",function(e){
+    if(e.target.className=='delete')
+    {
+        const li = e.target.parentElement;
+        list.removeChild(li);
+    }
+})
+
+//hide the item
+const hidethebks = document.querySelector('#hide');
+
+hidethebks.addEventListener('change',function(e){
+    if(hidethebks.checked)
+    {
+        list.style.display ="none";
+    }
+    else
+    {
+        list.style.display="initial";
+    }
+})
+
+const addbk = document.forms['add-book'];
+
+//add new item
+addbk.addEventListener("submit",function(e){
+    e.preventDefault();
+    const value = addbk.querySelector('input[type="text"]').value;
+    
+    //create elements
+    const li = document.createElement('li');
+    const content = document.createElement('span');
+    const button = document.createElement('span');
+
+    //givevalues
+    content.textContent=value;
+    content.classList.add('name');
+    button.textContent='delete';
+    button.classList.add('delete')
+
+    //append elements
+    list.appendChild(li);
+    li.appendChild(content);
+    li.appendChild(button);
+})
+
+//filter
+const filt = document.querySelector('input[type="text"]');
+
+filt.addEventListener('keyup', function(e){
+    // console.log(e.target.value);
+    const temptext = e.target.value.toLowerCase();
+    const allbooks = list.querySelectorAll('li');
+
+    allbooks.forEach(function(book)
+    {
+        const bookname = book.firstElementChild.textContent;
+        if(bookname.toLowerCase().indexOf(temptext)!=-1) //if the content we typed in doesn't appear, return -1
+        {
+            book.style.display="block";
+        }
+        else
+        {
+            book.style.display="none";
+        }
+    })
+    
+})
+
+//tabbed content
+
+
+const tab = document.querySelector('.tabs');
+const panels = document.querySelectorAll('.panel');
+
+tab.addEventListener('click',function(e){
+    if(e.target.tagName=="LI")
+    {
+        const targetpnl = document.querySelector(e.target.dataset.target);
+        panels.forEach(function(panel){
+            if(panel==targetpnl)
+            {
+                panel.classList.add('active');
+            }
+            else
+            {
+                panel.classList.remove('active');
+            }
+            
+        })
+    }
+})
