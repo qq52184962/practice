@@ -1,4 +1,4 @@
-body{
+bbody{
     font-family: Tahoma;
     color: #444;
     letter-spacing: 1px;
@@ -58,7 +58,7 @@ h1, h2{
     border-left: 5px solid #ddd;
     margin: 20px 10px;
 }
-
+ 
 #book-list li:hover{
     border-color: #9361bf;
 }
@@ -68,6 +68,27 @@ h1, h2{
     background: #9361bf;
     padding: 6px;
     border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+/* status */
+.status{
+    float: right;
+    background: #0bb845;
+    padding: 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Undo */
+.Undo{
+    float: right;
+    background: #b13e21;
+    padding: 6px;
+    border-radius: 4px;
+    margin-left: 6px;
     cursor: pointer;
     color: white;
 }
@@ -139,4 +160,8 @@ h1, h2{
 }
 #tabbed-content .panel.active{
     display: block;
+}
+
+.counter{
+    float: right
 }
