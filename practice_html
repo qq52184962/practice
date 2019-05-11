@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
   <head>
     <meta charset="utf-8">
@@ -16,26 +16,37 @@
 	    	</div>
 	    </header>
 	    <div id="book-list">
-	    	<h2 class="title">Books to Read</h2>
+						<h2 class="title">Books to Read</h2>
+					<div class="counter">
+						<span class="total"></span>
+						<span class="retrieve"></span>
+						<span class="todo"></span>
+					</div>
+					<div style="clear:both;"></div>
 	    	<ul>
 	    		<li>
 	    			<span class="name">Name of the Wind</span>
-	    			<span class="delete">delete</span>
+						<span class="status">Done</span>
+						<span class="delete">delete</span>
 	    		</li>
 	    		<li>
 	    			<span class="name">The Wise Man's Fear</span>
-	    			<span class="delete">delete</span>
+						<span class="status">Done</span>
+						<span class="delete">delete</span>
 	    		</li>
 	    		<li>
 	    			<span class="name">Kafka on the Shore</span>
-	    			<span class="delete">delete</span>
+						<span class="status">Done</span>
+						<span class="delete">delete</span>
 	    		</li>
 	    		<li>
 	    			<span class="name">The Master and the Margarita</span>
-	    			<span class="delete">delete</span>
+						<span class="status">Done</span>
+						<span class="delete">delete</span>
 					</li>
 	    	</ul>
-	    </div>
+			</div>
+			
 	    <form id="add-book">
 				<input type="checkbox" id="hide"/>
 				<label for="hide">Hide all books</label>
