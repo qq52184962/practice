@@ -1,6 +1,6 @@
 ## Welcome to GitHub Pages
 
-[Github page by Yenzhi](yenzhi.github.io)
+[Github page by Yenzhi](https://yenzhi.github.io/)
 
 You can use the [editor on GitHub](https://github.com/yenzhi/practice/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
