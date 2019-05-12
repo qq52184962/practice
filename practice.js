@@ -34,6 +34,11 @@ list.addEventListener("click",function(e){
     if(e.target.className=='delete')
     {
         list.removeChild(li);
+        todo--;
+        total--;
+        todoamt.textContent = "Todo: "+todo;
+        undoamt.textContent = "Uodo: "+undo;
+        totalamt.textContent = "Total: "+total;
     }
     if(e.target.className==="status")
     {
@@ -162,5 +167,6 @@ tab.addEventListener('click',function(e){
         })
     }
 })
+
 
 
