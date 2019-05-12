@@ -1,73 +1,86 @@
-<!DOCTYPE html> 
-<html>
-  <head>
-    <meta charset="utf-8">
-    <link href="practice.css" rel="stylesheet" />
-    <title>JavaScript DOM Tutorials</title>
-  </head>
-  <body>
-  	<div id="wrapper">
-	    <header>
-	    	<div id="page-banner">
-	    		<h1 class="title">books</h1>
-          <form id="search-books">
-            <input type="text" placeholder="Search books..." />
-          </form>
-	    	</div>
-	    </header>
-	    <div id="book-list">
-						<h2 class="title">Books to Read</h2>
-					<div class="counter">
-						<span class="total"></span>
-						<span class="retrieve"></span>
-						<span class="todo"></span>
-					</div>
-					<div style="clear:both;"></div>
-	    	<ul>
-	    		<li>
-	    			<span class="name">Name of the Wind</span>
-						<span class="status">Done</span>
-						<span class="delete">delete</span>
-	    		</li>
-	    		<li>
-	    			<span class="name">The Wise Man's Fear</span>
-						<span class="status">Done</span>
-						<span class="delete">delete</span>
-	    		</li>
-	    		<li>
-	    			<span class="name">Kafka on the Shore</span>
-						<span class="status">Done</span>
-						<span class="delete">delete</span>
-	    		</li>
-	    		<li>
-	    			<span class="name">The Master and the Margarita</span>
-						<span class="status">Done</span>
-						<span class="delete">delete</span>
-					</li>
-	    	</ul>
-			</div>
-			
-	    <form id="add-book">
-				<input type="checkbox" id="hide"/>
-				<label for="hide">Hide all books</label>
-	    	<input type="text" placeholder="Add a book..." />
-	    	<button>Add</button>
-	    </form>
-			<div id="tabbed-content">
-					<ul class="tabs">
-						<li data-target="#about" class="active">About</li>
-						<li data-target="#contact">Contact</li>
-					</ul>
-					<div class="panel active" id="about">
-						<p>Content for about tab...</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id nunc porta urna ornare rhoncus. Ut convallis ante at.</p>
-					</div>
-					<div class="panel" id="contact">
-						<p>Content for contact tab...</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id nunc porta urna ornare rhoncus. Ut convallis ante at.</p>
-					</div>
-				</div>
-    </div>
-    <script src="practice.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id='record'>Total: 0, Done: 0, Not yet: 0</div>
+  <ul id="todo">
+  </ul>
+  <input type="text" id='addField'>
+  <button id='addBtn'>Add</button>
+  <script>
+    (function() {
+      let doneCount = 0;
+      const list = [];
+      const todo = document.getElementById('todo');
+      const addBtn = document.getElementById('addBtn');
+      const addField = document.getElementById('addField');
+      const record = document.getElementById('record');
+      const genId = () => Math.ceil((Math.random() * 10000000));
+      const observer = new MutationObserver((mutationsList, observer) => {
+        record.innerText = `Total: ${list.length}, Done: ${doneCount}, Not yet: ${list.length - doneCount}`;
+      });
+      observer.observe(todo, { attributes: true, childList: true, subtree: true });
+      const addFunction = () => {
+        const id = genId();
+        // add row
+        const wrapper = document.createElement('li');
+        wrapper.setAttribute('data-id', id);
+        const para = document.createElement('p');
+        para.innerText = addField.value;
+        para.style.display = 'inline-block';
+        wrapper.appendChild(para);
+        ['Delete', 'Done'].forEach(i => {
+          const btn = document.createElement('button');
+          const findId = (e) => {
+            const id = e.target.parentElement.getAttribute('data-id');
+            const index = list.findIndex(item => item.dataId === Number(id));
+            return [index, id];
+          };
+          btn.innerText = i;
+          wrapper.appendChild(btn);
+          if (i === 'Delete') {
+            clickFn = (e) => {
+              const [index, _] = findId(e);
+              if (list[index].done) {
+                doneCount--;
+              }
+              todo.removeChild(list[index].element);
+              list.splice(index, 1);
+            };
+          } else {
+            clickFn = (e) => {
+              const [ index, _ ] = findId(e);
+              const para = list[index].element.firstElementChild;
+              if (!para.style.textDecoration) {
+                para.style.textDecoration = 'line-through';
+                doneCount++;
+              } else {
+                para.style.textDecoration = '';
+                doneCount--;
+              }
+              list[index] = { ...list[index], done: para.style.textDecoration.length !== 0 };
+            };
+          }
+          btn.addEventListener('click', clickFn);
+        });
+        todo.appendChild(wrapper);
+        list.push({ data: addField.value, done: false, dataId: id, element: wrapper });
+        addField.value = '';
+        addField.focus();
+      };
+      addField.addEventListener('keydown', (e) => {
+        if (e.keyCode === 13) {
+          addFunction(e.target.value);
+        }
+      });
+      addBtn.addEventListener('click', addFunction);
+      
+    })()
+  </script>
+</body>
 </html>
