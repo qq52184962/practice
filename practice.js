@@ -1,4 +1,4 @@
-/const list = document.querySelector('#book-list ul')
+const list = document.querySelector('#book-list ul')
 var todo,done,total;
 
 //initialcounter
